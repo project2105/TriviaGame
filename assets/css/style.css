@@ -1,0 +1,23 @@
+h1 {
+    font-size: 120px;
+}
+
+h2 {
+    font-size: 70px;
+}
+
+h1, h2, p {
+    text-align: center;
+}
+
+.sideImg img {
+    width: 90%;
+}
+
+/* #timerArea, #questionArea, #answerArea, #buttonArea {
+    padding: 5% auto;
+}*/
+
+#buttonArea {
+    margin: 0 auto;
+}
