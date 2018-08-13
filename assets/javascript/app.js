@@ -138,6 +138,7 @@ var questionsArray = [
 
 function setGame() {
     $('.start').hide();
+    current = 0;
     runQuiz();
 
     function runQuiz() {
@@ -163,7 +164,7 @@ function setGame() {
             response = $(this).val();
             clearTimeout(answerTimer);
             clearTimeout(tictoc);
-            setTimeout(function () { current++; runQuiz(); }, 2000);
+            checkForComplete();
             timerTime = 30;
             $('#answerArea').css('color', '#dd1613');
             if (response === currentCorrectAnswer) {
@@ -187,15 +188,22 @@ function setGame() {
             missedCount++;
             clearTimeout(answerTimer);
             clearTimeout(tictoc);
-            setTimeout(function () { current++; runQuiz(); }, 2000);
+            checkForComplete();
         }
 
         function checkForComplete() {
-            if (currentCorrectAnswer === 'Raven') {
-                $('#answerArea').append("<h2> Results: <br>" + rightCount + " Correct<br>" + wrongCount + " Wrong<br>" + missedCount + "Timed-Out</h2>");
+            if (current === questionsArray.length - 1) {
+                $('#answerArea').html("");
+                $('#questionArea').html("<h3> Results: <br>" + rightCount + " Correct<br>" + wrongCount + " Wrong<br>" + missedCount + "Timed-Out</h3>");
                 $('.start').show().text('Try Again');
+                rightCount = wrongCount = missedCount = 0;
+                btn1 = btn2 = btn3 = btn4 = 0;
+                timerTime = 30;
+                response = '';
+
+                current = answerTimer = 0;
             } else {
-                runQuiz;
+                setTimeout(function () { current++; runQuiz(); }, 2000);
             }
         }
         var tictoc;
