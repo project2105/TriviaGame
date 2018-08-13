@@ -14,10 +14,17 @@ h1, h2, p {
     width: 90%;
 }
 
-/* #timerArea, #questionArea, #answerArea, #buttonArea {
-    padding: 5% auto;
-}*/
-
 #buttonArea {
     margin: 0 auto;
+}
+
+#title {
+    font-size: 30px;
+}
+
+.start {
+    color: white;
+    background-color: black;
+    border: 0;
+    padding: 6px;
 }

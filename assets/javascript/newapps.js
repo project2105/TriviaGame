@@ -8,7 +8,7 @@ var current = 0;
 var questionsArray = [
     {
         question: 'This Egyptian serpent that is eating its own tail symbolizes the circle of life, death and eternity.',
-        answers: ['Thoth', 'Anubis', 'Ouroboros', 'Scarab'],
+        answers: ['Ouroboros', 'Thoth', 'Anubis', 'Scarab'],
         correctAnswer: 'Ouroboros',
         title: 'Africa',
         regionMap: 'assets/images/africa.png',
@@ -32,7 +32,7 @@ var questionsArray = [
     },
     {
         question: 'Who was the legendary founder of the Inca Dynasty in Peru and the Cusco Dynasty at Cusco?',
-        answers: ['Viracocha', 'Inti', 'Pacha Kamaq', 'Manco Cápac'],
+        answers: ['Manco Cápac', 'Viracocha', 'Inti', 'Pacha Kamaq'],
         correctAnswer: 'Manco Cápac',
         title: 'The Americas',
         regionMap: 'assets/images/theAmericas.png',
@@ -40,7 +40,7 @@ var questionsArray = [
     },
     {
         question: 'According to the Egyptian Myth of Osiris, who murdered Osiris?',
-        answers: ['Horus', 'Set', 'Ra', 'Anhur'],
+        answers: ['Set', 'Horus', 'Ra', 'Anhur'],
         correctAnswer: 'Set',
         title: 'Africa',
         regionMap: 'assets/images/africa.png',
@@ -56,7 +56,7 @@ var questionsArray = [
     },
     {
         question: 'Which figure from Greek mythology traveled to the underworld to return his wife Eurydice to the land of the living?',
-        answers: ['Hercules', 'Perseus', 'Orpheus', 'Daedalus'],
+        answers: ['Orpheus', 'Hercules', 'Perseus', 'Daedalus'],
         correctAnswer: 'Orpheus',
         title: 'Europe',
         regionMap: 'assets/images/europe.png',
@@ -72,7 +72,7 @@ var questionsArray = [
     },
     {
         question: 'In African mythology, Anansi is a trickster and storyteller who takes the shape of which animal?',
-        answers: ['Wild dog', 'Monkey', 'Spider', 'Crocodile'],
+        answers: ['Spider', 'Wild dog', 'Monkey', 'Crocodile'],
         correctAnswer: 'Spider',
         title: 'Africa',
         regionMap: 'assets/images/africa.png',
@@ -88,7 +88,7 @@ var questionsArray = [
     },
     {
         question: 'In Norse mythology, what is the name of the serpent which eats the roots of the ash tree Yggdrasil?',
-        answers: ['Bragi', 'Nidhogg', 'Odin', 'Ymir'],
+        answers: ['Nidhogg', 'Bragi', 'Odin', 'Ymir'],
         correctAnswer: 'Nidhogg',
         title: 'Europe',
         regionMap: 'assets/images/europe.png',
@@ -104,7 +104,7 @@ var questionsArray = [
     },
     {
         question: 'This sky god was the great king of the Universe and the glorious pinnacle of Yoruba mythology.',
-        answers: ['Obatala', 'Eshu', 'Olorun', 'Yemaya'],
+        answers: ['Olorun', 'Obatala', 'Eshu', 'Yemaya'],
         correctAnswer: 'Olorun',
         title: 'Africa',
         regionMap: 'assets/images/africa.png',
@@ -128,7 +128,7 @@ var questionsArray = [
     },
     {
         question: 'According some natives from the Pacific Northwest of America, this trickster spirit disguised himself as a baby to steal from the Sky Chief.',
-        answers: ['Crow', 'Raven', 'Raven Mocker', 'Coyote'],
+        answers: ['Raven', 'Crow', 'Raven Mocker', 'Coyote'],
         correctAnswer: 'Raven',
         title: 'The Americas',
         regionMap: 'assets/images/theAmericas.png',
@@ -141,74 +141,93 @@ function setGame() {
     runQuiz();
 
     function runQuiz() {
-        timerTime = 30;
-        clearInterval(tictoc);
         var answerTimer = setTimeout(Timer, 30000);
         $("#questionArea").html(questionsArray[current].question);
         $('#answerArea').text('');
-        var btn1 = $('<button>').text(questionsArray[current].answers[0]).attr('value', questionsArray[current].answers[0]).attr('class', 'answers');
-        var btn2 = $('<button>').text(questionsArray[current].answers[1]).attr('value', questionsArray[current].answers[1]).attr('class', 'answers');
-        var btn3 = $('<button>').text(questionsArray[current].answers[2]).attr('value', questionsArray[current].answers[2]).attr('class', 'answers');
-        var btn4 = $('<button>').text(questionsArray[current].answers[3]).attr('value', questionsArray[current].answers[3]).attr('class', 'answers');
+        var btn1 = $('<button>').text(questionsArray[current].answers[0]).attr('value', questionsArray[current].answers[0]).attr('id', 'btn0');
+        var btn2 = $('<button>').text(questionsArray[current].answers[1]).attr('value', questionsArray[current].answers[1]).attr('id', 'btn1');
+        var btn3 = $('<button>').text(questionsArray[current].answers[2]).attr('value', questionsArray[current].answers[2]).attr('id', 'btn2');
+        var btn4 = $('<button>').text(questionsArray[current].answers[3]).attr('value', questionsArray[current].answers[3]).attr('id', 'btn3');
         $('#answerArea').append(btn1, btn2, btn3, btn4);
-        $('.answers').css({ 'color': 'white', 'backgroundColor': 'black', 'border': '0', 'margin': '2%', 'padding': '6px' });
         currentCorrectAnswer = questionsArray[current].correctAnswer;
         $('#title').text(questionsArray[current].title);
         $('#map').attr('src', questionsArray[current].regionMap);
         $('#image').attr('src', questionsArray[current].image);
         $('#timerArea').html('Time Remaining: <span id="stopwatch">' + timerTime + '</span> Seconds');
-        $('#timerArea').css({ 'border': '3px solid black', 'margin': '5px', 'padding': '5px' });
+        $('#timerArea').css('border', '3px solid black')
+        $('#timerArea').css('margin', '5px');
+        $('#timerArea').css('padding', '5px');
 
         $('button').on('click', function () {
             response = $(this).val();
-            clearTimeout(answerTimer);
-            clearTimeout(tictoc);
-            setTimeout(function () { current++; runQuiz(); }, 2000);
-            timerTime = 30;
-            $('#answerArea').css('color', '#dd1613');
             if (response === currentCorrectAnswer) {
                 rightCount++;
                 $('#answerArea').text('Correct!');
+                clearTimeout(answerTimer);
+                clearTimeout(tictoc);
+                setTimeout(function () { current++; runQuiz(); }, 3000);
+                checkForComplete();
+                timerTime = 30;
             } else {
                 wrongCount++;
-                $('#answerArea').text('Wrong! The correct answer was ' + currentCorrectAnswer + '.');
+                $('#answerArea').text('Wrong! The correct answer was ' + currentCorrectAnswer);
+                clearTimeout(answerTimer);
+                clearTimeout(tictoc);
+                setTimeout(function () { current++; runQuiz(); }, 3000);
+                checkForComplete();
+                timerTime = 30;
             }
         })
 
         function Timer() {
-            if (current <= questionsArray.length) {
-                showAnswer();
-            }
+            showAnswer();
         }
 
         function showAnswer() {
-            $('#answerArea').css('color', '#dd1613');
             $('#answerArea').html('The correct answer was ' + currentCorrectAnswer + '.');
+            current++;
             missedCount++;
-            clearTimeout(answerTimer);
-            clearTimeout(tictoc);
-            setTimeout(function () { current++; runQuiz(); }, 2000);
+            timerTime = 30;
+            setTimeout(function () { current++; runQuiz(); }, 3000);
+
         }
 
+        console.log(rightCount + ' ' + wrongCount + ' ' + missedCount)
+
         function checkForComplete() {
-            if (currentCorrectAnswer === 'Raven') {
-                $('#answerArea').append("<h2> Results: <br>" + rightCount + " Correct<br>" + wrongCount + " Wrong<br>" + missedCount + "Timed-Out</h2>");
-                $('.start').show().text('Try Again');
+            if (current > 16) {
+                $('#answerArea').html("<h2> Results: <br>" + rightCount + " Correct<br>" + wrongCount + " Wrong<br>" + missedCount + "</h2>");
             } else {
                 runQuiz;
             }
         }
-        var tictoc;
-        tictoc = setInterval(countdown, 1000);
-        function countdown() {
-            if (timerTime > 1) {
-                timerTime--;
-                $('#stopwatch').html(timerTime);
-            } else {
-                $('#timerArea').html('Time\'s Up!');
-            }
-        }
+
 
     }
-
 }
+
+var tictoc = setInterval(countdown, 1000);
+function countdown() {
+    if (timerTime > 1) {
+        timerTime--;
+        $('#stopwatch').html(timerTime);
+    } else {
+        $('#timerArea').html('Time\'s Up!');
+    }
+}
+
+
+
+
+
+
+
+//run game
+// function runGame() {
+//     var windowTimeout = setTimeout(function () {
+//         ;
+//     }, 1000);
+//     $('.start').show().text('Try Again');
+
+// }
+//reset button
